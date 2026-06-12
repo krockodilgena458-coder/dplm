@@ -453,93 +453,175 @@ def login():
 
 def main():
     st.set_page_config(page_title="СтройОпт", layout="wide", page_icon="🏗️")
-    st.markdown("""
-    <style>
-        /* Основной фон приложения */
-        .stApp { background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%); }
-        
-        /* Карточки метрик */
-        .stMetric { background: white; border-radius: 20px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: box-shadow 0.2s; }
-        .stMetric:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
-        
-        /* Вкладки */
-        .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p { font-size: 1.1rem; font-weight: 600; color: #2c3e50; }
-        .stTabs [data-baseweb="tab-list"] { gap: 24px; }
-        
-        /* Кнопки */
-        .stButton button { border-radius: 30px; font-weight: 500; transition: all 0.2s; }
-        .stButton button:hover { transform: scale(1.02); }
-        
-        /* Сайдбар — тёмный фон */
-        [data-testid="stSidebar"] { background-color: #2c3e50; }
-        
-        /* ВСЕ ТЕКСТЫ В САЙДБАРЕ — СВЕТЛЫЕ */
-        [data-testid="stSidebar"] .stMarkdown, 
-        [data-testid="stSidebar"] .stMarkdown p,
-        [data-testid="stSidebar"] .stRadio label div[data-testid="stMarkdownContainer"] p,
-        [data-testid="stSidebar"] .stSelectbox label,
-        [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] span,
-        [data-testid="stSidebar"] .stTextInput label,
-        [data-testid="stSidebar"] .stNumberInput label,
-        [data-testid="stSidebar"] .stDateInput label,
-        [data-testid="stSidebar"] .stTextArea label,
-        [data-testid="stSidebar"] .stForm label,
-        [data-testid="stSidebar"] .stRadio label,
-        [data-testid="stSidebar"] .stCheckbox label {
-            color: #ecf0f1 !important;
-        }
-        
-        /* Текст внутри селектов (выпадающих списков) в сайдбаре — ТЁМНЫЙ (так надо, потому что фон селекта белый) */
-        [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div[role="button"] span,
-        [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] input {
-            color: #1e466e !important;
-            background-color: white !important;
-        }
-        
-        /* Радиокнопки в сайдбаре — фон при наведении */
-        [data-testid="stSidebar"] .stRadio [role="radiogroup"] label { 
-            background-color: transparent !important; 
-            border-radius: 8px; 
-            padding: 5px 10px; 
-            margin: 2px 0; 
-        }
-        [data-testid="stSidebar"] .stRadio [role="radiogroup"] label[data-baseweb="radio"]:hover { 
-            background-color: rgba(255,255,255,0.1) !important; 
-        }
-        
-        /* Текст внутри полей ввода в сайдбаре — ТЁМНЫЙ (фон полей белый) */
-        [data-testid="stSidebar"] .stTextInput input,
-        [data-testid="stSidebar"] .stNumberInput input,
-        [data-testid="stSidebar"] .stDateInput input,
-        [data-testid="stSidebar"] .stTextArea textarea {
-            color: #1e466e !important;
-            background-color: white !important;
-        }
-        
-        /* Кнопка выхода в сайдбаре */
-        [data-testid="stSidebar"] .stButton button {
-            color: #2c3e50 !important;
-            background-color: #ecf0f1 !important;
-        }
-        
-        /* Остальные стили */
-        div[data-testid="stExpander"] { border-radius: 15px; border: none; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
-        .dataframe { border-radius: 12px; overflow: hidden; }
-        h1, h2, h3, h4, .stMarkdown h1, .stMarkdown h2, .stMarkdown h3, .stMarkdown h4 { color: #1e466e !important; }
-        .stDataFrame { overflow-x: auto; }
-        
-        /* Информационные сообщения и тосты */
-        .stAlert, .stToast, .stInfo, .stWarning, .stSuccess, .stError {
-            color: #1e466e !important;
-        }
-        
-        /* Таблицы в сайдбаре, если есть */
-        [data-testid="stSidebar"] .dataframe, 
-        [data-testid="stSidebar"] table {
-            color: #1e466e !important;
-        }
-    </style>
-    """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+    /* === ОСНОВНАЯ ОБЛАСТЬ (СВЕТЛЫЙ ФОН) — ЧЁРНЫЙ ТЕКСТ === */
+    .stApp {
+        background: linear-gradient(135deg, #f8f9fc 0%, #e9ecef 100%);
+        color: #000000 !important;
+    }
+    
+    /* Весь текст в основной области — чёрный */
+    .stApp p, .stApp span, .stApp div, .stApp label, .stApp .stMarkdown, 
+    .stApp .stTextInput label, .stApp .stNumberInput label, .stApp .stDateInput label,
+    .stApp .stTextArea label, .stApp .stSelectbox label, .stApp .stRadio label,
+    .stApp .stCheckbox label, .stApp .stMetric label, .stApp .stMetric div,
+    .stApp .stDataFrame, .stApp table, .stApp .stAlert, .stApp .stInfo,
+    .stApp .stWarning, .stApp .stSuccess, .stApp .stError {
+        color: #000000 !important;
+    }
+    
+    /* Заголовки в основной области */
+    .stApp h1, .stApp h2, .stApp h3, .stApp h4, .stApp h5, .stApp h6,
+    .stApp .stMarkdown h1, .stApp .stMarkdown h2, .stApp .stMarkdown h3 {
+        color: #1e466e !important;
+    }
+    
+    /* Текст внутри полей ввода — чёрный */
+    .stApp .stTextInput input,
+    .stApp .stNumberInput input,
+    .stApp .stDateInput input,
+    .stApp .stTextArea textarea,
+    .stApp .stSelectbox div[data-baseweb="select"] span,
+    .stApp .stSelectbox input {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Карточки метрик — белый фон, чёрный текст */
+    .stMetric {
+        background-color: #ffffff !important;
+        border-radius: 20px;
+        padding: 15px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: box-shadow 0.2s;
+    }
+    .stMetric:hover {
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .stMetric label, .stMetric div {
+        color: #000000 !important;
+    }
+    
+    /* Вкладки */
+    .stTabs [data-baseweb="tab-list"] button [data-testid="stMarkdownContainer"] p {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #2c3e50 !important;
+    }
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 24px;
+    }
+    
+    /* Кнопки */
+    .stButton button {
+        border-radius: 30px;
+        font-weight: 500;
+        transition: all 0.2s;
+        color: #ffffff !important;
+        background-color: #1e466e !important;
+    }
+    .stButton button:hover {
+        transform: scale(1.02);
+        background-color: #2c5a8c !important;
+    }
+    
+    /* Expanders */
+    div[data-testid="stExpander"] {
+        border-radius: 15px;
+        border: none;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        background-color: #ffffff !important;
+    }
+    div[data-testid="stExpander"] p, div[data-testid="stExpander"] span {
+        color: #000000 !important;
+    }
+    
+    /* Таблицы — чёрный текст, белый фон */
+    .dataframe {
+        border-radius: 12px;
+        overflow: hidden;
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    .dataframe th, .dataframe td {
+        color: #000000 !important;
+    }
+    
+    .stDataFrame {
+        overflow-x: auto;
+    }
+    
+    /* Информационные сообщения */
+    .stAlert, .stToast, .stInfo, .stWarning, .stSuccess, .stError {
+        color: #000000 !important;
+        background-color: #f0f0f0 !important;
+    }
+    
+    /* === САЙДБАР (ТЁМНЫЙ ФОН) — БЕЛЫЙ ТЕКСТ === */
+    [data-testid="stSidebar"] {
+        background-color: #2c3e50 !important;
+    }
+    
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] .stMarkdown p,
+    [data-testid="stSidebar"] .stRadio label div[data-testid="stMarkdownContainer"] p,
+    [data-testid="stSidebar"] .stSelectbox label,
+    [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] span,
+    [data-testid="stSidebar"] .stTextInput label,
+    [data-testid="stSidebar"] .stNumberInput label,
+    [data-testid="stSidebar"] .stDateInput label,
+    [data-testid="stSidebar"] .stTextArea label,
+    [data-testid="stSidebar"] .stForm label,
+    [data-testid="stSidebar"] .stRadio label,
+    [data-testid="stSidebar"] .stCheckbox label,
+    [data-testid="stSidebar"] .stMetric label {
+        color: #ffffff !important;
+    }
+    
+    /* Сайдбар — текст внутри полей ввода (белый фон) -> чёрный текст */
+    [data-testid="stSidebar"] .stTextInput input,
+    [data-testid="stSidebar"] .stNumberInput input,
+    [data-testid="stSidebar"] .stDateInput input,
+    [data-testid="stSidebar"] .stTextArea textarea {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Сайдбар — выпадающие списки */
+    [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] div[role="button"] span,
+    [data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] input {
+        color: #000000 !important;
+        background-color: #ffffff !important;
+    }
+    
+    /* Сайдбар — радиокнопки */
+    [data-testid="stSidebar"] .stRadio [role="radiogroup"] label {
+        background-color: transparent !important;
+        border-radius: 8px;
+        padding: 5px 10px;
+        margin: 2px 0;
+        color: #ffffff !important;
+    }
+    [data-testid="stSidebar"] .stRadio [role="radiogroup"] label[data-baseweb="radio"]:hover {
+        background-color: rgba(255,255,255,0.1) !important;
+    }
+    
+    /* Сайдбар — кнопка выхода */
+    [data-testid="stSidebar"] .stButton button {
+        color: #2c3e50 !important;
+        background-color: #ecf0f1 !important;
+    }
+    
+    /* Сайдбар — метрики */
+    [data-testid="stSidebar"] .stMetric {
+        background-color: rgba(255,255,255,0.1) !important;
+    }
+    [data-testid="stSidebar"] .stMetric div {
+        color: #ffffff !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
     if "user_id" not in st.session_state:
         login()
