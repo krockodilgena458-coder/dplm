@@ -623,7 +623,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-    if "user_id" not in st.session_state:
+if "user_id" not in st.session_state:
         login()
         return
 
